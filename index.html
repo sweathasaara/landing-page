@@ -3,149 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furistic Interface</title>
+    <title>Futuristic Interface - Slider</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
-        body{
+        body {
             background-color: #0a0f1e;
             color: #00d9ff;
+            overflow-x: hidden;
         }
-        .section{
+        .slider-container {
+            display: flex;
+            width: 300vw; /* 3 sections */
+            transition: transform 0.5s ease-in-out;
+        }
+        .section {
+            width: 100vw;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 50px;
-
+            flex-shrink: 0;
         }
-        nav{
+        /* Full-screen video slide */
+        .video-slide {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .video-slide video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(0,17,34,0.9);
-            padding: 15px 20px ;
+            background-color: rgba(0, 17, 34, 0.9);
+            padding: 15px 20px;
             display: flex;
             justify-content: center;
             gap: 30px;
             z-index: 1000;
         }
-        nav a{
+        nav a {
             color: #00d9ff;
             text-decoration: none;
             font-size: 18px;
-            transition:color 0.3s ;
-
+            transition: color 0.3s;
         }
-        nav a:hover{
+        nav a:hover {
             color: #ff0099;
-            
         }
-        #intro{
-           position: relative;
-           overflow: hidden;
-           width: 100%;
-           height: 100vh;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           color:#00d9ff;
-           text-align: center;
-        }
-        .video-container{
-            width: 90%;
-            height: 80vh;
-            border: 3px solid #00d9ff;
-            box-shadow: 0 0 20px #00d9ff;
-            overflow: hidden;
-        }
-        .video-container video{
+        .slider-btns {
+            position: fixed;
+            top: 50%;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 1000;
         }
-        .technology{
+        .slider-btns button {
+            background-color: #00d9ff;
+            color: #0a0f1e;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .slider-btns button:hover {
+            background-color: #ff0099;
+        }
+        .technology {
             flex-direction: row;
             justify-content: space-between;
             padding: 50px 80px;
             display: flex;
             align-items: center;
             text-align: left;
-
         }
-        .tech-content{
+        .tech-content {
             width: 50%;
-            ;
         }
-        .tech-content h1{
+        .tech-content h1 {
             font-size: 36px;
             margin-bottom: 20px;
             color: #ff0099;
         }
-        .tech-content p{
+        .tech-content p {
             font-size: 18px;
             line-height: 1.5;
             color: #00d9ff;
             margin-bottom: 20px;
         }
-        .features{
+        .features {
             list-style: none;
         }
-        .features li{
+        .features li {
             font-size: 18px;
             margin-bottom: 10px;
             color: #ff0099;
-            position: relative;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition:all 0.5s ease-in-out;
         }
-        .features li::before{
+        .features li::before {
             content: "*";
             color: #00d9ff;
             margin-right: 10px;
         }
-        .tech-image{
+        .tech-image {
             width: 40%;
             height: 300px;
-            background: linear-gradient(45deg,#00d9ff,#ff0099);
+            background: linear-gradient(45deg, #00d9ff, #ff0099);
             border-radius: 10px;
-            box-shadow: 0 0 20px #00d9ff;font-weight: bold;
+            box-shadow: 0 0 20px #00d9ff;
+            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             font-size: 20px;
-
         }
-        .background-video{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-
-        .cta{
-            flex-direction:  column;
+        .cta {
+            flex-direction: column;
             justify-content: center;
             text-align: center;
-            background: radial-gradient(circle,#00d9ff 0%,#0a0f1e 80%);
+            background: radial-gradient(circle, #00d9ff 0%, #0a0f1e 80%);
         }
-        .cta h1{
+        .cta h1 {
             font-size: 40px;
             margin-bottom: 20px;
             color: #ff0099;
         }
-        .cta .btn{
+        .cta .btn {
             padding: 15px 30px;
             font-size: 20px;
             color: #0a0f1e;
@@ -153,130 +154,87 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.3s,background 0.3s;
+            transition: transform 0.3s, background 0.3s;
         }
-        .cta.btn:hover{
+        .cta .btn:hover {
             background: #ff0099;
             transform: scale(1.1);
         }
-        footer{
-            background-color: rgba(0,17,34,0.9);
+        footer {
+            background-color: rgba(0, 17, 34, 0.9);
             color: #00d9ff;
             padding: 20px;
             text-align: center;
             margin-top: 50px;
         }
-        .footer-container{
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-        .footer-column{
-            flex: 1;
-            min-width: 200px;
-            padding: 10px;
-        }
-        .footer-column h1{
-            color: #ff0099;
-            margin-bottom: 10px;
-
-        }
-        .footer-links a{
-            color: #00d9ff;
-            text-decoration: none;
-            margin-bottom:8px ;
-            transition: color 0.3s;
-
-        }
-        .footer-links a:hover{
-            color: #ff0099;
-        }
-        .copyright{
-            margin-top: 15px;
-            font-size: 14px;
-            color: #ff0099;
-        }
-        .animate{
-            opacity: 1 !important;
-            transform: translate(0) !important;
-        }
     </style>
 </head>
 <body>
+
     <nav>
-        <a href="#intro">Introduction</a>
-        <a href="#technology">Technology</a>
-        <a href="#cta">Get Started</a>
+        <a href="#" onclick="moveSlider(0)">Introduction</a>
+        <a href="#" onclick="moveSlider(1)">Technology</a>
+        <a href="#" onclick="moveSlider(2)">Get Started</a>
     </nav>
-    <section id="intro" class="section intro">
-        <video autoplay loop muted playsinline class="background-video">
-            <source src="jj.mp4" type="video/mp4">
 
-        </video>
+    <div class="slider-container" id="slider">
+        <!-- Full-screen Video Slide -->
+        <section class="section video-slide">
+            <video autoplay loop muted playsinline>
+                <source src="jj.mp4" type="video/mp4">
+            </video>
+        </section>
 
-    </section>
+        <section class="section technology">
+            <div class="tech-content">
+                <h1>Next-Gen Futuristic HUD</h1>
+                <p>Step into the future with advanced Head-up-Display designed for seamless user interaction, real-time data visualization, and an immersive experience.</p>
+                <ul class="features">
+                    <li>Real-Time AI Integration</li>
+                    <li>Lightning Fast Performance</li>
+                    <li>Sleek and Modern UI</li>
+                    <li>Enhanced Security</li>
+                </ul>
+            </div>
+            <div class="tech-image"></div>
+        </section>
 
+        <section class="section cta">
+            <h1>Ready to Experience the Future?</h1>
+            <button class="btn">Get Started Now</button>
+        </section>
+    </div>
 
-    <section id="technology" class="section technology">
-        <div class="tech-content">
-
-            <h1>Next-Gen Furistic HUD</h1>
-            <p>Step into the future with advanced Head-up-Display designed for Seamless user Intraction,real-time data visualization,and an immersive experience</p>
-            <ul class="features">
-                <li>Real Time AI Integraion</li>
-                <li>Lightninh Fast Performance</li>
-                <li>Sleek and Modern UI</li>
-                <li>Enchanced Security</li>
-            </ul>
-
-        </div>
-        <div class="tech-image"></div>
-     
-
-    </section>
-
-
-    <section id="cta" class="section cta">
-        <h1>Ready to Experience the Future?</h1>
-        <button class="btn">Get Started Now</button>
-    </section>
-
+    <div class="slider-btns">
+        <button onclick="prevSlide()">❮</button>
+        <button onclick="nextSlide()">❯</button>
+    </div>
 
     <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>About</h3>
-                <p>AI-Driven Interfaces</p>
-
-                </div><div class="footer-column">
-            <h3>Quick Links</h3>
-            <div class="footer-links">
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
-                <a href="#">Privacy Policy</a>
-                
-
-            </div>
-        </div>
-
-
-        </div>
-        <p class="copyright">&copy; 2025 Furistic UI.All Rights Received</p>
+        <p class="copyright">&copy; 2025 Futuristic UI. All Rights Reserved.</p>
     </footer>
 
     <script>
-        window.addEventListener("scroll",function(){
-            let features=document.querySelectorAll(".features li");
-            features.forEach((feature,index)=>{
-                let position=feature.getBoundingClientRect().top;
-                let screenPosition=window.innerHeight/1.3;
-                if(position<screenPosition){
-                    feature.style.transitionDelay=index*0.2+"s";
-                    feature.classList.add("animate");
-                }
-            })
-        })
+        let currentSlide = 0;
+
+        function moveSlider(index) {
+            currentSlide = index;
+            document.getElementById('slider').style.transform = `translateX(-${index * 100}vw)`;
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                moveSlider(currentSlide - 1);
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < 2) {
+                moveSlider(currentSlide + 1);
+            }
+        }
     </script>
-    
+
 </body>
 </html>
+
